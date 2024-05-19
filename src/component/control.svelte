@@ -22,9 +22,11 @@
   let count = "0";
   let sending = false;
   let success = "";
+  let paramsToken = "";
 
   onMount(async () => {
     moment.locale("zh-tw");
+    paramsToken = new URLSearchParams(window.location.search).get("api");
     try {
       await getAll();
       await getList();
@@ -39,7 +41,8 @@
     const response = await fetch(`${conf.api}/api/hanabii/all/hanabii77`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${paramsToken}`
       }
     });
     const result = await response.json();
@@ -51,7 +54,8 @@
     const response = await fetch(`${conf.api}/api/hanabii/list/hanabii77`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${paramsToken}`
       }
     });
     const result = await response.json();
@@ -62,7 +66,8 @@
     const response = await fetch(`${conf.api}/api/hanabii/list/hanabii77`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${paramsToken}`
       },
       body: JSON.stringify(data)
     });
@@ -73,7 +78,8 @@
     const response = await fetch(`${conf.api}/api/hanabii/list/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${paramsToken}`
       }
     });
     return await response.json();
@@ -83,7 +89,8 @@
     const response = await fetch(`${conf.api}/api/hanabii/all/hanabii77`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${paramsToken}`
       },
       body: JSON.stringify({
         twitch: conf.target,
